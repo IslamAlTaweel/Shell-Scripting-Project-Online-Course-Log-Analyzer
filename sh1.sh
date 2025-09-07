@@ -22,3 +22,15 @@ read servNum #var to take in user input
         *) echo -e "\nInvalid service number.\nPlease enter a valid service number listed in the menu to proceed.\n";; #any char except 1-8 is invalid
 esac    
 done
+        case "$servNum"
+        in
+        1) echo -e  "\nNumber of Sessions Conducted per Course:"
+           cut -d, -f6 log.txt | uniq -c | sort -nr ;; #course name in field 6,print duplicate counts,then sort from gr>
+        2) ;;
+        3) ;;
+        4) ;;
+        5) ;;
+        6) ;;
+        7) ;;
+        8) ;;
+esac
