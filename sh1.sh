@@ -24,8 +24,9 @@ esac    
 done
         case "$servNum"
         in
+           #take course name and session id,remove duplicate sessions,count how many sessions per course        
         1) echo -e  "\nNumber of Sessions Conducted per Course:"
-           cut -d, -f6 log.txt | uniq -c | sort -nr ;; #course name in field 6,print duplicate counts,then sort in decreasing order
+           cut -d, -f6,9 log.txt | sort -u | cut -d, -f1 | uniq -c | sort -nr ;;
         2) echo -e "\nEnter the CourseID to compute average attendance:"
        read courseID
        
