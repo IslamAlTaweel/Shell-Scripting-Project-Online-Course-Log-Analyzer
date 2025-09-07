@@ -18,7 +18,7 @@ valServ=0 #flag for service number in case user enters invalid input
 read servNum #var to take in user input
         case "$servNum"
         in
-        [1-8]) valServ=$(( valServ + 1 ));; 
-        *) echo -e "\nInvalid service number.\nPlease enter a valid service number listed in the menu to proceed.\n";;
+        [1-8]) valServ=$(( valServ + 1 ));; #valid service number,user may proceed
+        *) echo -e "\nInvalid service number.\nPlease enter a valid service number listed in the menu to proceed.\n";; #any char except 1-8 is invalid
 esac    
 done
