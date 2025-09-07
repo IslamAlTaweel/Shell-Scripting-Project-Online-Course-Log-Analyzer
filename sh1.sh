@@ -25,7 +25,7 @@ done
         case "$servNum"
         in
         1) echo -e  "\nNumber of Sessions Conducted per Course:"
-           cut -d, -f6 log.txt | uniq -c | sort -nr ;; #course name in field 6,print duplicate counts,then sort from gr>
+           cut -d, -f6 log.txt | uniq -c | sort -nr ;; #course name in field 6,print duplicate counts,then sort in decreasing order
         2) ;;
         3) ;;
         4) ;;
