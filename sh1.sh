@@ -49,38 +49,7 @@ done
        fi
        ;;
         3) ;;
-        4) echo -e "\nEnter the CourseID:"
-       read courseID
-       echo "Enter the SessionID:"
-       read sessionID
-       
-      
-       #i set X to 5 minutes, so lateness is 5 minutes or more.
-       late_threshold_minutes=5 
-       
-       echo -e "\nLate Arrivals for CourseID $courseID, SessionID $sessionID (late by $late_threshold_minutes minutes or more):"
-       
-       grep ",$courseID," log.txt | grep ",$sessionID," | while IFS=, read -r Tool StudentID FirstName LastName InstructorID CourseID StartDate StartTime Length SessionID StudentBeginDateTime StudentLeaveDateTime; do
-           
-           scheduled_time=$(echo "$StartTime" | cut -d' ' -f2)
-           student_join_time=$(echo "$StudentBeginDateTime" | sed 's/^ //')
-           
-           scheduled_hour=$(echo "$scheduled_time" | cut -d: -f1)
-           scheduled_minute=$(echo "$scheduled_time" | cut -d: -f2)
-           
-           join_hour=$(echo "$student_join_time" | cut -d: -f1)
-           join_minute=$(echo "$student_join_time" | cut -d: -f2)
-           
-           scheduled_total_minutes=$((10#$scheduled_hour * 60 + 10#$scheduled_minute))
-           join_total_minutes=$((10#$join_hour * 60 + 10#$join_minute))
-           
-           time_difference_minutes=$((join_total_minutes - scheduled_total_minutes))
-           
-           if [ "$time_difference_minutes" -ge "$late_threshold_minutes" ]; then
-               echo "  - $FirstName $LastName (Student ID: $StudentID) joined at $student_join_time (Scheduled: $scheduled_time)"
-           fi
-       done
-       ;;
+        4) 
         5) ;;
         6) ;;
         7) ;;
