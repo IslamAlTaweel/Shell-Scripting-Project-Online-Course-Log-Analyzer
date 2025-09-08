@@ -50,7 +50,28 @@ in
            echo "No sessions found for CourseID $courseID."
        fi
        ;;
-    3) ;;
+   3) echo "Enter Course ID:"
+      read cID 
+
+      regFile=$(find . -name ${cID}.txt) #find the course's registration file
+                if [ -z "$regFile" ]
+                then
+                echo "Couldn't find registration file for $cID!"
+                exit 1
+fi
+       registered=$(cut -d, -f1 "$regFile") #obtain the students registered in the course
+       attended=$(grep "$cID" log.txt | cut -d, -f2) #obtain the students who attended any session in the course
+
+        echo "Absent Students in $cID:" #find registerd students who never attended a session
+           for sID in $registered
+                do
+                count=$(grep -c ",$sID.*,$cID," log.txt)
+                if [ "$count" -lt 1 ]
+                then
+                grep "^$sID," "$regFile"
+fi 
+done;;
+
     4) echo -e "\nEnter the CourseID:"
        read courseID
        echo "Enter the SessionID:"
