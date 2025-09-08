@@ -64,11 +64,11 @@ in
        registered=$(cut -d, -f1 "$regFile") #obtain the students registered in the course
        attended=$(grep "$cID" log.txt | cut -d, -f2) #obtain the students who attended any session in the course
 
-       echo "Absent Students in $cID:" #find registerd students who never attended a session
+       echo "Absent Students in $cID:" #find registered students who never attended a session
             for sID in $registered
             do
                 count=$(grep -c ",$sID.*,$cID," log.txt)
-                if [ "$count" -lt 1 ]
+                if [ "$count" -lt 1 ] #display as absent if not even one session had been attended by the student
                 then
                     grep "^$sID," "$regFile"
                 fi 
