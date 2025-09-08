@@ -15,7 +15,9 @@ do
     echo "6.) Average Attendance Time per Student per Course"
     echo "7.) Average Number of Attendances per Instructor"
     echo "8.) Most Frequently Used Tool"
+    
     read servNum #var to take in user input
+    
     case "$servNum"
     in
         [1-8]) valServ=$(( valServ + 1 ));; #valid service number,user may proceed
