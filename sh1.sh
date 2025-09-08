@@ -50,7 +50,7 @@ in
            echo "No sessions found for CourseID $courseID."
        fi
        ;;
-   3) echo "Enter Course ID:"
+   3) echo "Enter Course ID to view the list of absent students:"
       read cID #course ID
 
       regFile=$(find . -name ${cID}.txt) #find the course's registration file
