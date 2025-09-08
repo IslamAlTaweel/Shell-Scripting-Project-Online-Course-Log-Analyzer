@@ -56,7 +56,7 @@ in
        read cID #course ID
 
        regFile=$(find . -name ${cID}.txt) #find the course's registration file
-            if [ -z "$regFile" ] #in case course registration file was found
+            if [ -z "$regFile" ] #in case course registration file couldn't be found
             then
                 echo "Couldn't find registration file for $cID!"
                 exit 1
