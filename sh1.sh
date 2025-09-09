@@ -130,7 +130,7 @@ in
        sessionAttendance=$(grep "$cID.*,$sessID," log.txt | cut -d, -f2) #students who joined the session
        early_threshold_min=5 #if a student leaves five minutes or more before the end of class consider it early
        startTime=$(grep "$cID.*,$sessID," log.txt | cut -d, -f7 | cut -d' ' -f2 | head -1)
-       startHour=$(echo "$startTime" | cut -d: -f1)
+       startHour=$(echo "$startTime" | cut -d: -f1 | tr -d '')
        hourNum1=$(echo "$startHour" | cut -c1)
                if [ "$hourNum1" -eq 0 ]
                then
@@ -178,7 +178,7 @@ in
         for student in $sessionAttendance
         do
         student_leave_time=$(grep ",$student.*,$cID.*,$sessID," log.txt | cut -d, -f11)
-        leftHour=$(echo "$student_leave_time" | cut -d: -f1)
+        leftHour=$(echo "$student_leave_time" | cut -d: -f1 | tr -d ' ')
          leftHourNum1=$(echo "$leftHour" | cut -c1)
                 if [ "$leftHourNum1" -eq 0 ]
                 then
