@@ -82,9 +82,9 @@ in
        echo "Enter the SessionID:"
        read sessionID
        
-       late_threshold_minutes=5 # Lateness rule: X minutes or more after scheduled start. X is set to 5.
+       lateness_period=5 # X minutes or more after scheduled start is late. X is set to 5.
        
-       echo -e "\nLate Arrivals for CourseID $courseID, SessionID $sessionID (late by $late_threshold_minutes minutes or more):"
+       echo -e "\nLate Arrivals for CourseID $courseID, SessionID $sessionID (late by $lateness_period minutes or more):"
        
        # read each filtered line into a single variable, then use cut to extract fields
        grep ",$courseID," log.txt | grep ",$sessionID," | while read -r line; do
@@ -110,7 +110,7 @@ in
            
            time_difference_minutes=$((join_total_minutes - scheduled_total_minutes))
            
-           if [ "$time_difference_minutes" -ge "$late_threshold_minutes" ]; then
+           if [ "$time_difference_minutes" -ge "$lateness_period" ]; then
                echo "  - $FirstName $LastName (Student ID: $StudentID) joined at $student_join_time (Scheduled: $scheduled_time)"
            fi
        done
@@ -196,7 +196,68 @@ fi
 done
 ;;   
 
-    6) ;;
+    6)echo -e "\nEnter the CourseID to compute average attendance time per student:"
+       read courseID # Get CourseID from the user
+       
+       students_in_course=$(grep ",$courseID," log.txt | cut -d, -f2,3,4 | sort -u)
+       
+       echo -e "\nAverage Attendance Time per Student for CourseID $courseID:"
+       
+       # 'IFS=',' read -r studentID firstName lastName': This cleverly splits each line
+       # (e.g., "1001,Ali,Ahmed") into three variables. IFS stands for 'Internal Field Separator'.
+       echo "$students_in_course" | while IFS=',' read -r studentID firstName lastName; do
+           total_attendance_minutes=0 # sum of minutes for each student for this course
+           session_count=0            # count of sessions for each student attended in this course.
+           
+          
+           grep ",$studentID,.*,$courseID," log.txt | while read -r line; do
+               # Extract student's join and leave times for THIS specific session entry.
+               student_begin_time=$(echo "$line" | cut -d, -f10 | sed 's/^ //')
+               student_leave_time=$(echo "$line" | cut -d, -f11 | sed 's/^ //')
+               
+               if [ -n "$student_begin_time" ] && [ -n "$student_leave_time" ]; then
+                   # Convert join and leave times into total minutes from midnight.
+                   begin_hour=$(echo "$student_begin_time" | cut -d: -f1)
+                   begin_minute=$(echo "$student_begin_time" | cut -d: -f2)
+                   
+                   leave_hour=$(echo "$student_leave_time" | cut -d: -f1)
+                   leave_minute=$(echo "$student_leave_time" | cut -d: -f2)
+                   
+                   begin_total_minutes=$((10#$begin_hour * 60 + 10#$begin_minute))
+                   leave_total_minutes=$((10#$leave_hour * 60 + 10#$leave_minute))
+                   
+                   # calculating how long the student was in this session.
+                   session_duration=$((leave_total_minutes - begin_total_minutes))
+                   
+                   total_attendance_minutes=$((total_attendance_minutes + session_duration))
+                   session_count=$((session_count + 1))
+               fi
+           done
+           
+           # calculating the average for the sessions for this student.
+           if [ "$session_count" -gt 0 ]; then
+               average_minutes=$((total_attendance_minutes / session_count))
+               echo "  - $firstName $lastName (Student ID: $studentID): $average_minutes minutes per session."
+           else
+               echo "  - $firstName $lastName (Student ID: $studentID): No attendance records found for this course."
+           fi
+       done
+       ;; 
     7) ;;
-    8) ;;
+    8) echo -e "\nMost Frequently Used Tool:"
+       
+       # Count how many lines start with "Zoom," 
+       zoom_count=$(grep -c "^Zoom," log.txt)
+       # Count how many lines start with "Teams,".
+       teams_count=$(grep -c "^Teams," log.txt)
+       
+       # Comparing counts
+       if [ "$zoom_count" -gt "$teams_count" ]; then
+           echo "Zoom is used more frequently ($zoom_count sessions) than Teams ($teams_count sessions)."
+       elif [ "$teams_count" -gt "$zoom_count" ]; then
+           echo "Teams is used more frequently ($teams_count sessions) than Zoom ($zoom_count sessions)."
+       else
+           echo "Zoom and Teams are used equally frequently ($zoom_count sessions each)."
+       fi
+       ;; 
 esac
