@@ -115,96 +115,87 @@ in
            fi
        done
        ;;
-    5) echo "Enter Course ID:"
-       read cID  #course ID
+           5) echo "Enter Course ID:"
+           read cID 
 
-       echo "Enter Session ID for $cID to view list of students who had left early:"
-       read sessID #sessionID
-       regFile=$(find . -name ${cID}.txt) #find the course's registration file
-               if [ -z "$regFile" ]
-               then
-               echo "Couldn't find registration file for $cID!"
-               exit 1
-               fi
+         echo "Enter Session ID for $cID to view list of students who had left early:"
+     read sessID #sessionID
 
-       sessionAttendance=$(grep "$cID.*,$sessID," log.txt | cut -d, -f2) #students who joined the session
-       early_threshold_min=5 #if a student leaves five minutes or more before the end of class consider it early
-       startTime=$(grep "$cID.*,$sessID," log.txt | cut -d, -f7 | cut -d' ' -f2 | head -1)
-       startHour=$(echo "$startTime" | cut -d: -f1 | tr -d ' ')
-       hourNum1=$(echo "$startHour" | cut -c1)
-               if [ "$hourNum1" -eq 0 ]
-               then
-               startHour=$(echo "$startHour" | cut -c2)
-               fi
-       startMinute=$(echo "$startTime" | cut -d: -f2)
-       minNum1=$(echo "$startMinute" | cut -c1)
-               if [ "$minNum1" -eq 0 ]  
-               then
-               startMinute=$(echo "$startMinute" | cut -c2)
-               fi
+     regFile=$(find . -name ${cID}.txt) #find the course's registration file
 
-       sessLen=$(grep "$cID.*,$sessID," log.txt |  cut -d, -f8 | head -1)
-               if [ -z "$sessLen" ]
-               then
-               echo "Couldn't find sesssion"
-               exit 1
-               fi
+       if [ -z "$regFile" ]
+           then
+     echo "Couldn't find registration file for $cID!"
+exit 1
+fi
+     sessionAttendance=$(grep "$cID.*,$sessID," log.txt | cut -d, -f2) #students who joined the session
+     early_threshold_min=5 #if a student leaves five minutes or more before the end of class consider it early
 
-              if [ "$sessLen" -ge 60 ]
-              then
-                sessHours=$(( sessLen / 60 ))
-                sessMins=$(( sessLen % 60 ))
-              else
-                sessHours=0
-                sessMins="$sessLen"
-              fi
-       endHour=$(( startHour + sessHours + (startMinute + sessMins)/60 ))
-       endMin=$(( (startMinute + sessMins)%60 ))
+     startTime=$(grep "$cID.*,$sessID," log.txt | cut -d, -f7 | cut -d' ' -f2 | head -1)
+     startHour=$(echo "$startTime" | cut -d: -f1 | tr -d ' ' | sed 's/^0//')
 
-             if [ "$endMin" -ge "$early_threshold_min" ]
-             then
-               early_leave_minute=$(( endMin - early_threshold_min ))
-               early_leave_hour="$endHour"
-             elif [ "$early_threshold_min" -ne 0 ] #in case 0 is the threshold
-             then
-                minutes=$(( endMin - early_threshold_min ))
-                early_leave_minute=$(( minutes + 60 ))
-                early_leave_hour=$(( endHour - 1 ))
-             else
-                early_leave_minute="$endMin"
-                early_leave_hour="$endHour"
-            fi
-        echo "Students who left early:"
-        for student in $sessionAttendance
-        do
-        student_leave_time=$(grep ",$student.*,$cID.*,$sessID," log.txt | cut -d, -f11)
-        leftHour=$(echo "$student_leave_time" | cut -d: -f1 | tr -d ' ')
-         leftHourNum1=$(echo "$leftHour" | cut -c1)
-                if [ "$leftHourNum1" -eq 0 ]
-                then
-                leftHour=$(echo "$leftHour" | cut -c2)
+     startMinute=$(echo "$startTime" | cut -d: -f2 | sed 's/^0//')
+
+     sessLen=$(grep "$cID.*,$sessID," log.txt | cut -d, -f8 | head -1)
+        if [ -z "$sessLen" ]
+        then
+         echo "Couldn't find sesssion"
+        exit 1
 fi
 
- leftMinute=$(echo "$student_leave_time" | cut -d: -f2)
- leftMinNum1=$(echo "$leftMinute" | cut -c1)
- 
-                if [ "$leftMinNum1" -eq 0 ]
-                then
-                leftMinute=$(echo "$leftMinute" | cut -c2)
+     if [ "$sessLen" -ge 60 ]
+     then
+        sessHours=$(( sessLen / 60 ))
+        sessMins=$(( sessLen % 60 ))
+     else
+        sessHours=0
+        sessMins="$sessLen"
 fi
+    endHour=$(( startHour + sessHours + (startMinute + sessMins)/60 ))
+    endMin=$(( (startMinute + sessMins)%60 ))
 
-        if [ "$leftHour" -lt "$early_leave_hour" ]
-        then
-        grep "$student," "$regFile"
-        elif [ "$leftHour" -eq "$early_leave_hour" ]
-        then
-                if [ "$leftMinute" -lt "$early_leave_minute" ]
-                then
-                grep "$student," "$regFile"
+    if [ "$endMin" -ge "$early_threshold_min" ]
+    then
+        early_leave_minute=$(( endMin - early_threshold_min ))
+    early_leave_hour="$endHour"
+
+    elif [ "$early_threshold_min" -ne 0 ] #in case 0 is the threshold
+    then
+    minutes=$(( endMin - early_threshold_min ))
+    early_leave_minute=$(( minutes + 60 ))
+    early_leave_hour=$(( endHour - 1 ))
+    else
+     early_leave_minute="$endMin"
+    early_leave_hour="$endHour"
+
 fi
+        early_leave_minute=$(echo "$early_leave_minute" | sed 's/^0//') 
+        early_leave_hour=$(echo "$early_leave_hour" | sed 's/^0//')
+
+    echo "Students who left session $sessID for course $cID early:"
+    for student in $sessionAttendance
+    do
+    student_leave_time=$(grep ",$student.*,$cID.*,$sessID," log.txt | cut -d, -f11)
+    leftHour=$(echo "$student_leave_time" | cut -d: -f1 | tr -d ' ' | sed 's/^0//')
+        leftMinute=$(echo "$student_leave_time" | cut -d: -f2 | sed 's/^0//')
+
+if [ -z "$leftMinute" ]
+then
+leftMinute=0
+fi
+    if [ "$leftHour" -lt "$early_leave_hour" ]
+    then
+    grep "$student," "$regFile"
+    elif [ "$leftHour" -eq "$early_leave_hour" ]
+    then
+        if [ "$leftMinute" -le "$early_leave_minute" ]
+        then
+        grep "$student," "$regFile"
+    fi
 fi
 done
- ;;
+;;   
+
     6) ;;
     7) ;;
     8) ;;
