@@ -210,8 +210,7 @@ in
        
        echo -e "\nAverage Attendance Time per Student for CourseID $courseID:"
        
-       # 'IFS=',' read -r studentID firstName lastName': This cleverly splits each line
-       # (e.g., "1001,Ali,Ahmed") into three variables. IFS stands for 'Internal Field Separator'.
+       
        echo "$students_in_course" | while IFS=',' read -r studentID firstName lastName; do
            total_attendance_minutes=0 # sum of minutes for each student for this course
            session_count=0            # count of sessions for each student attended in this course.
@@ -253,12 +252,12 @@ in
     7) ;;
     8) echo -e "\nMost Frequently Used Tool:"
        
-       # Count how many lines start with "Zoom," 
+       # count how many lines start with "Zoom," 
        zoom_count=$(grep -c "^Zoom," log.txt)
-       # Count how many lines start with "Teams,".
+       # count how many lines start with "Teams,".
        teams_count=$(grep -c "^Teams," log.txt)
        
-       # Comparing counts
+       # comparing counts
        if [ "$zoom_count" -gt "$teams_count" ]; then
            echo "Zoom is used more frequently ($zoom_count sessions) than Teams ($teams_count sessions)."
        elif [ "$teams_count" -gt "$zoom_count" ]; then
