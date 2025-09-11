@@ -70,7 +70,6 @@ in
             fi
             
        registered=$(cut -d, -f1 "$regFile") #obtain the students registered in the course
-       attended=$(grep "$cID" log.txt | cut -d, -f2) #obtain the students who attended any session in the course
 
        echo "Absent Students in $cID:" #find registered students who never attended a session
        
