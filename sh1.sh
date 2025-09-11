@@ -248,7 +248,30 @@ in
            fi
        done
        ;; 
-    7) ;;
+     7) echo -e  "\nAverage Number of Attendances per Instructor:"
+           attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students in a session
+        instructors=$(cut -d, -f5 log.txt | sort -u)
+
+        for instructor in $instructors
+        do 
+        sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1)
+        total_students=0
+        num_of_sessions=0
+
+        for cnt in $sessions_info
+        do
+        total_students=$(( total_students + cnt ))
+        num_of_sessions=$(( num_of_sessions + 1 ))
+        done
+
+        if [ "$num_of_sessions" -gt 0 ]
+        then
+        average_attendance_per_instructor=$(( total_students / num_of_sessions ))
+        echo "$instructor : $average_attendance_per_instructor students over $num_of_sessions sessions"
+fi
+done
+;;
+
     8) echo -e "\nMost Frequently Used Tool:"
        
        # count how many lines start with "Zoom," 
