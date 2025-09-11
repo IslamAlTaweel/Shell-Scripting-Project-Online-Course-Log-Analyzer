@@ -288,4 +288,4 @@ done
            echo "Zoom and Teams are used equally frequently ($zoom_count sessions each)."
        fi
        ;; 
-esac
+        esac
