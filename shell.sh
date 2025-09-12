@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ ! -f "log.txt" ]; then
 	echo "Error: 'log.txt' not found in the current directory."
 	echo "Please make sure the log file is named 'log.txt' and is placed in the same directory as this script."
