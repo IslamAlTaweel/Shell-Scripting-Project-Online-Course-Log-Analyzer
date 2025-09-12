@@ -8,15 +8,24 @@ The **Online Course Log Analyzer** is a Bash script designed to process online c
 ## Features
 The script provides the following services:
 
-1. **Number of Sessions per Course** – Displays the total number of sessions conducted for each course.  
-2. **Average Attendance per Course** – Computes the average number of students attending each session for a specified course.  
-3. **List of Absent Students per Course** – Lists students registered for a course but never attended any session.  
-4. **List of Late Arrivals per Session** – Shows students who joined a session late (by 5 or more minutes).  
-5. **List of Students Leaving Early** – Shows students who left a session early (before the last 5 minutes).  
-6. **Average Attendance Time per Student per Course** – Computes average session duration per student for a given course.  
-7. **Average Number of Attendances per Instructor** – Shows the average number of students per session for each instructor.  
-8. **Most Frequently Used Tool** – Compares usage of Zoom and Teams based on session logs.  
-9. **Exit** – Exit the program.
+1. **Number of Sessions per Course**
+    – Displays the total number of sessions conducted for each course.  
+2. **Average Attendance per Course**
+    – Computes the average number of students attending each session for a specified course.  
+3. **List of Absent Students per Course**
+    – Lists students registered for a course but never attended any session.  
+4. **List of Late Arrivals per Session**
+    – Shows students who joined a session late (by 5 or more minutes).  
+5. **List of Students Leaving Early**
+    – Shows students who left a session early (before the last 5 minutes).  
+6. **Average Attendance Time per Student per Course**
+    – Computes average session duration per student for a given course.  
+7. **Average Number of Attendances per Instructor**
+    – Shows the average number of students per session for each instructor.  
+8. **Most Frequently Used Tool**
+    – Compares usage of Zoom and Teams based on session logs.  
+9. **Exit**
+    – Exit the program.
 
 ---
 
