@@ -248,7 +248,7 @@ while :; do
 	7)
 		echo -e "\nAverage Number of Attendances per Instructor:"
 		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students in a session
-		instructors=$(cut -d, -f5 log.txt | sort -u)
+		instructors=$(cut -d, -f5 log.txt | sort -u) #obtain all the different instructors
 
 		for instructor in $instructors; do
 			sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1)
