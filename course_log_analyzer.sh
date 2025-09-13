@@ -200,51 +200,52 @@ while :; do #keep displaying service menu till user chooses to exit
 		done
 		;;
 
-	6)
-		echo -e "\nEnter the CourseID to compute average attendance time per student:"
-		read courseID # Get CourseID from the user
+	6) echo -e "\nEnter the CourseID to compute average attendance time per student:"
+	read courseID # get CourseID from the user
 
-		students_in_course=$(grep ",$courseID," log.txt | cut -d, -f2,3,4 | sort -u)
+	students_in_course=$(grep ",$courseID," log.txt | cut -d, -f2,3,4 | sort -u)
 
-		echo -e "\nAverage Attendance Time per Student for CourseID $courseID:"
+	echo -e "\nAverage Attendance Time per Student for CourseID $courseID:"
 
-		echo "$students_in_course" | while IFS=',' read -r studentID firstName lastName; do
-			total_attendance_minutes=0 # sum of minutes for each student for this course
-			session_count=0            # count of sessions for each student attended in this course.
+	while IFS=',' read -r studentID firstName lastName; do
+		total_attendance_minutes=0 # sum of minutes for each student for this course
+		session_count=0            # count of sessions for each student attended in this course.
 
-			grep ",$studentID,.*,$courseID," log.txt | while read -r line; do
-				# Extract student's join and leave times for THIS specific session entry.
-				student_begin_time=$(echo "$line" | cut -d, -f10 | sed 's/^ //')
-				student_leave_time=$(echo "$line" | cut -d, -f11 | sed 's/^ //')
+		# extract student's join and leave times for the specific session entry.
+		while IFS=',' read -r tool sid fname lname instructor course session startTime duration student_begin_time student_leave_time; do
+			student_begin_time=$(echo "$student_begin_time" | sed 's/^ *//;s/ *$//')
+			student_leave_time=$(echo "$student_leave_time" | sed 's/^ *//;s/ *$//')
 
-				if [ -n "$student_begin_time" ] && [ -n "$student_leave_time" ]; then
-					# Convert join and leave times into total minutes from midnight.
-					begin_hour=$(echo "$student_begin_time" | cut -d: -f1)
-					begin_minute=$(echo "$student_begin_time" | cut -d: -f2)
+			if [ -n "$student_begin_time" ] && [ -n "$student_leave_time" ]; then
+				begin_hour=$(echo "$student_begin_time" | cut -d: -f1)
+				begin_minute=$(echo "$student_begin_time" | cut -d: -f2)
 
-					leave_hour=$(echo "$student_leave_time" | cut -d: -f1)
-					leave_minute=$(echo "$student_leave_time" | cut -d: -f2)
+				leave_hour=$(echo "$student_leave_time" | cut -d: -f1)
+				leave_minute=$(echo "$student_leave_time" | cut -d: -f2)
 
-					begin_total_minutes=$((10#$begin_hour * 60 + 10#$begin_minute))
-					leave_total_minutes=$((10#$leave_hour * 60 + 10#$leave_minute))
+				begin_total_minutes=$((10#$begin_hour * 60 + 10#$begin_minute))
+				leave_total_minutes=$((10#$leave_hour * 60 + 10#$leave_minute))
 
-					# calculating how long the student was in this session.
-					session_duration=$((leave_total_minutes - begin_total_minutes))
+				# calculating how long the student was in this session.
+				session_duration=$((leave_total_minutes - begin_total_minutes))
 
+				if [ "$session_duration" -ge 0 ]; then
 					total_attendance_minutes=$((total_attendance_minutes + session_duration))
 					session_count=$((session_count + 1))
 				fi
-			done
-
-			# calculating the average for the sessions for this student.
-			if [ "$session_count" -gt 0 ]; then
-				average_minutes=$((total_attendance_minutes / session_count))
-				echo "  - $firstName $lastName (Student ID: $studentID): $average_minutes minutes per session."
-			else
-				echo "  - $firstName $lastName (Student ID: $studentID): No attendance records found for this course."
 			fi
-		done
-		;;
+		done < <(grep ",$studentID,.*,$courseID," log.txt)
+
+		# calculating the average for the sessions for this student.
+		if [ "$session_count" -gt 0 ]; then
+			average_minutes=$((total_attendance_minutes / session_count))
+			echo "  - $firstName $lastName (Student ID: $studentID): $average_minutes minutes per session."
+		else
+			echo "  - $firstName $lastName (Student ID: $studentID): No attendance records found for this course."
+		fi
+	done <<< "$students_in_course"
+	;;
+
 	7)
 		echo -e "\nAverage Number of Attendances per Instructor:"
 		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students per session
