@@ -18,7 +18,7 @@ The script provides the following services:
 
 3. List of Absent Students per Course
       - Shows students registered in a course who never attended any session.
-      - Requires a registration file for the course (e.g., `CourseID.txt`).
+      - Requires a registration file for the course (`CourseID.txt`).
 
 4. List of Late Arrivals per Session
       - Lists students who joined a session later than the allowed threshold (default 5 minutes).
