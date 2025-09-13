@@ -6,11 +6,11 @@ The **Online Course Log Analyzer** is a Bash Shell script that processes session
 ---
 
 ## System Features
-The shell script provides the following services:
+The shell scripted **Online Course Log Analyzer** provides the following services:
 
 1. Number of Sessions per Course
       - Displays the total number of sessions conducted for each course
-      - Sorts the courses in increasing order of session count
+      - Sorts the courses in descending order of session count
 
 2. Average Attendance per Course
       - Computes the average number of students attending per session for a given course
@@ -18,10 +18,10 @@ The shell script provides the following services:
 
 3. List of Absent Students per Course
       - Shows students registered in a course who never attended any session
-      - Requires a corresponding registration file named (`CourseID.txt`) for the course 
+      - Requires a corresponding registration file named `CourseID.txt` for the course 
 
 4. List of Late Arrivals per Session
-      - Lists students who joined a session later than the allowed threshold (default 5 minutes)
+      - Lists students who joined a session later than the allowed threshold ( default set to 5 minutes )
       - Shows scheduled time versus actual join time
 
 5. List of Students Leaving Early
@@ -34,11 +34,11 @@ The shell script provides the following services:
 
 7. Average Number of Attendances per Instructor
       - Computes the average number of students per session for each instructor
-      - Aggregates data from all sessions in `log.txt`
+      - Aggregates data from all sessions logged in `log.txt`
 
 8. Most Frequently Used Tool
       - Compares the usage of Zoom vs. Teams
-      - Shows which tool is used more frequently based on session counts
+      - Displays which tool is used more frequently based on session counts
 
 9. Exit
       - Ends the program.
@@ -53,7 +53,7 @@ The shell script provides the following services:
 
 ---
 
-## Log File Format (`log.txt`)
+## Log File Format ( `log.txt` )
 The shell script expects `log.txt` to be structured in a CSV ( comma seperated values ) formatted file consisting of the following fields:
 
 | Field | Description |
