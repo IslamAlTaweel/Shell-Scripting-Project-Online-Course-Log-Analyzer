@@ -1,3 +1,4 @@
+#Laila Awad 1230085 - Islam Zayed 1230007
 #!/bin/bash
 if [ ! -f "log.txt" ]; then # diplay error msg in case log file isnt found in directory
 	echo "Error: 'log.txt' not found in the current directory."
