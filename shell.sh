@@ -1,12 +1,12 @@
 #!/bin/bash
-if [ ! -f "log.txt" ]; then
+if [ ! -f "log.txt" ]; then # diplay error msg in case log file isnt found in directory
 	echo "Error: 'log.txt' not found in the current directory."
 	echo "Please make sure the log file is named 'log.txt' and is placed in the same directory as this script."
 	exit 1
 fi
 echo "Welcome the Online Course Log Analyzer."
 
-while :; do
+while :; do # display the service menu till the user chooses to exit
 	echo -e "\nPlease select a service from the menu displayed below to proceed.\n"
 
 	#incase of invalid user input display menu until valid service is chosen
