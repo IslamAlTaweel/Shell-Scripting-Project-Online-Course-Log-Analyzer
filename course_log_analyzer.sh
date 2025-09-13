@@ -134,7 +134,7 @@ while :; do # display the service menu till the user chooses to exit
 
 		if [ -z "$regFile" ]; then # display error msg in case registration file isn't found
 			echo "Couldn't find registration file for $cID!"
-			exit 1
+			continue
 		fi
 
 		# obtain unique students who joined the session
