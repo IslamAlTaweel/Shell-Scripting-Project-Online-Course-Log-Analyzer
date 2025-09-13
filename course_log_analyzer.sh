@@ -1,12 +1,12 @@
 #!/bin/bash
-if [ ! -f "log.txt" ]; then
+if [ ! -f "log.txt" ]; then #display error msg in case log file isn't found
 	echo "Error: 'log.txt' not found in the current directory."
 	echo "Please make sure the log file is named 'log.txt' and is placed in the same directory as this script."
 	exit 1
 fi
 echo "Welcome the Online Course Log Analyzer."
 
-while :; do
+while :; do #keep displaying service menu till user chooses to exit
 	echo -e "\nPlease select a service from the menu displayed below to proceed.\n"
 
 	#incase of invalid user input display menu until valid service is chosen
@@ -21,13 +21,13 @@ while :; do
 	echo "7. Average Number of Attendances per Instructor"
 	echo "8. Most Frequently Used Tool"
 	echo "9. Exit"
-	read servNum #var to take in user input
+	read servNum #var to take in user input for service number
 
-	case "$servNum" in
+	case "$servNum" in #used to ensure valid user input 
 	[1-8]) ;;
 	9.
 		echo "Exiting Program.....GoodBye!"
-		break
+		break #closes the program by breaking out of the while true loop
 		;;
 	*) echo -e "\nInvalid service number.\n" ;; #any char except 1-8 is invalid
 	esac
