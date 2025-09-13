@@ -25,7 +25,7 @@ while :; do
 
 	case "$servNum" in
 	[1-8]) ;;
-	9)
+	9.
 		echo "Exiting Program.....GoodBye!"
 		break
 		;;
