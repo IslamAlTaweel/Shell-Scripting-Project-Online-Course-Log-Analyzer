@@ -1,16 +1,16 @@
 # Shell Scripting Project – Online Course Log Analyzer
 
 ## Overview
-The **Online Course Log Analyzer** is a Bash Shell script that processes session records stored in a file named log.txt , generated from online teaching platforms. It offers a range of features to analyze course activity, including session details, attendance tracking, late arrivals, early departures, and instructor-related statistics. The tool is designed for interactive, menu-driven use, making it easy to explore and interpret course log data.
+The **Online Course Log Analyzer** is a Bash Shell script that processes session records generated from online teaching platforms and stored in a file named log.txt. A wide range of features is offered for analyzing course activity, including session details, attendance tracking, late arrivals, early departures, and instructor-related statistics. The tool is designed for interactive, menu-driven use, making it easy for the user to explore and interpret online course log data.
 
 ---
 
 ## Features
-The script provides the following services:
+The shell script provides the following services:
 
 1. Number of Sessions per Course
       - Displays the total number of sessions conducted for each course
-      - Sorts the courses in decreasing order of session count
+      - Sorts the courses in increasing order of session count
 
 2. Average Attendance per Course
       - Computes the average number of students attending per session for a given course
@@ -18,14 +18,14 @@ The script provides the following services:
 
 3. List of Absent Students per Course
       - Shows students registered in a course who never attended any session
-      - Requires a registration file for the course (`CourseID.txt`)
+      - Requires a corresponding registration file named (`CourseID.txt`) for the course 
 
 4. List of Late Arrivals per Session
       - Lists students who joined a session later than the allowed threshold (default 5 minutes)
       - Shows scheduled time versus actual join time
 
 5. List of Students Leaving Early
-      - Displays students who left a session at least 5 minutes before the end
+      - Displays students who left a session at least 5 minutes before the end of the session 
       - Requires session start time and length from `log.txt`
 
 6. Average Attendance Time per Student per Course
