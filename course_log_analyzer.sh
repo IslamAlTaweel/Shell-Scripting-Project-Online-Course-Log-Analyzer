@@ -247,20 +247,20 @@ while :; do #keep displaying service menu till user chooses to exit
 		;;
 	7)
 		echo -e "\nAverage Number of Attendances per Instructor:"
-		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students in a session
+		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students per session
 		instructors=$(cut -d, -f5 log.txt | sort -u) #obtain all the different instructors
 
 		for instructor in $instructors; do
-			sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1)
-			total_students=0
-			num_of_sessions=0
+			sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1) #obtain session count for instructor
+			total_students=0 #total number of student attendees across all sessions for an instructor
+			num_of_sessions=0 #number of sessions the instructor taught
 
-			for cnt in $sessions_info; do
+			for cnt in $sessions_info; do #loop through an instructors session count to add students to total and increment number of sessions
 				total_students=$((total_students + cnt))
 				num_of_sessions=$((num_of_sessions + 1))
 			done
 
-			if [ "$num_of_sessions" -gt 0 ]; then
+			if [ "$num_of_sessions" -gt 0 ]; then #compute and display average attendance
 				average_attendance_per_instructor=$((total_students / num_of_sessions))
 				echo "$instructor : $average_attendance_per_instructor students over $num_of_sessions sessions"
 			fi
