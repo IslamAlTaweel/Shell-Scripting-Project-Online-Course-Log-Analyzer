@@ -88,7 +88,7 @@ chmod +x course_log_analyzer.sh
 ![5987123e-bb9c-4a62-b46c-6aa12c6edd58](https://github.com/user-attachments/assets/479da35b-6c2e-4c5b-8594-fbcfa43dbb99)
 ![90e580ba-882d-4b34-bb12-5a3f81ff7282](https://github.com/user-attachments/assets/828e76f9-12c8-4d09-b563-b2cb49c75bf1)
 ![eb7173c0-426d-4251-b4fe-8e1576e5560a](https://github.com/user-attachments/assets/341e0951-d987-4238-9e75-65c1eb20e79e)
-![5ba7aed3-2529-4959-ad3d-f814525b2207](https://github.com/user-attachments/assets/c15e8c37-ba7a-4df4-95e0-71931b8f30f3)
 ![0e030dc5-97f8-493a-a590-89bca44bc969](https://github.com/user-attachments/assets/c5c9d455-46a4-49d1-be87-58e0ae43bf50)
+![5ba7aed3-2529-4959-ad3d-f814525b2207](https://github.com/user-attachments/assets/c15e8c37-ba7a-4df4-95e0-71931b8f30f3)
 ![f0f4070c-a1d2-4409-b6da-98f901a4a206](https://github.com/user-attachments/assets/0fed54f5-77ad-43ec-96ae-26959022f7f5)
 
