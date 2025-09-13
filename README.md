@@ -5,7 +5,7 @@ The **Online Course Log Analyzer** is a Bash Shell script that processes session
 
 ---
 
-## Features
+## System Features
 The shell script provides the following services:
 
 1. Number of Sessions per Course
