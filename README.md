@@ -1,7 +1,7 @@
 # Shell Scripting Project – Online Course Log Analyzer
 
 ## Overview
-The **Online Course Log Analyzer** is a Bash Shell script that processes session records stored in a file named log.txt. It offers a range of features to analyze course activity, including session details, attendance tracking, late arrivals, early departures, and instructor-related statistics. The tool is designed for interactive, menu-driven use, making it easy to explore and interpret course log data.
+The **Online Course Log Analyzer** is a Bash Shell script that processes session records stored in a file named log.txt , generated from online teaching platforms. It offers a range of features to analyze course activity, including session details, attendance tracking, late arrivals, early departures, and instructor-related statistics. The tool is designed for interactive, menu-driven use, making it easy to explore and interpret course log data.
 
 ---
 
