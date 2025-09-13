@@ -49,7 +49,7 @@ The shell scripted **Online Course Log Analyzer** provides the following service
 - Linux environment
 - Bash shell (`#!/bin/bash`)
 - `log.txt` must exist in the same directory as the script
-- Each course has a corresponding registration file named `CourseID.txt` in the current directory
+- Each course has a corresponding registration file named `CourseID.txt` in the current directory containing each registered student's student ID, first name, and last name
 
 ---
 
@@ -74,8 +74,8 @@ The shell script expects `log.txt` to be structured in a CSV ( comma seperated v
 
 ## Execution Instructions 
 
-1. Ensure that `log.txt` and all course registration files (`CourseID.txt`) are in the same directory as the script.
-2. Make the shell script executable:
+1. Ensure that `log.txt` and all course registration files (`CourseID.txt`) are in the same directory as the bash shell script.
+2. Make the bash shell script executable:
 
 ```bash
 chmod +x course_log_analyzer.sh
