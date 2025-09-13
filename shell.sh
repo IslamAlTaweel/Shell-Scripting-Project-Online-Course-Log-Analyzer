@@ -12,15 +12,15 @@ while :; do
 	#incase of invalid user input display menu until valid service is chosen
 	#display user based interface
 	echo "Services Provided:"
-	echo "1.) Number of Sessions per Course"
-	echo "2.) Average Attendance per Course"
-	echo "3.) List of Absent Students per Course"
-	echo "4.) List of Late Arrivals per Session"
-	echo "5.) List of Students Leaving Early"
-	echo "6.) Average Attendance Time per Student per Course"
-	echo "7.) Average Number of Attendances per Instructor"
-	echo "8.) Most Frequently Used Tool"
-	echo "9.) Exit"
+	echo "1. Number of Sessions per Course"
+	echo "2. Average Attendance per Course"
+	echo "3. List of Absent Students per Course"
+	echo "4. List of Late Arrivals per Session"
+	echo "5. List of Students Leaving Early"
+	echo "6. Average Attendance Time per Student per Course"
+	echo "7. Average Number of Attendances per Instructor"
+	echo "8. Most Frequently Used Tool"
+	echo "9. Exit"
 	read servNum #var to take in user input
 
 	case "$servNum" in
