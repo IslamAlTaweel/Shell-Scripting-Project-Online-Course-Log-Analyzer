@@ -54,7 +54,7 @@ The script provides the following services:
 ---
 
 ## Log File Format (`log.txt`)
-The script expects `log.txt` to be structured in a CSV ( comma seperated values ) formatted file consisting the following fields:
+The shell script expects `log.txt` to be structured in a CSV ( comma seperated values ) formatted file consisting of the following fields:
 
 | Field | Description |
 |-------|-------------|
@@ -72,7 +72,7 @@ The script expects `log.txt` to be structured in a CSV ( comma seperated values 
 
 ---
 
-## Usage
+## Execution Instructions
 
 1. Ensure that `log.txt` and all course registration files (`CourseID.txt`) are in the same directory as the script.
 2. Make the shell script executable:
