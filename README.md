@@ -49,7 +49,7 @@ The script provides the following services:
 - Linux or macOS environment.
 - Bash shell (`#!/bin/bash`).
 - `log.txt` must exist in the same directory as the script.
-- Each course has a registration file named `<CourseID>.txt` in the current directory.
+- Each course has a registration file named `CourseID.txt` in the current directory.
 
 ---
 
@@ -74,7 +74,7 @@ The script expects `log.txt` to be a CSV file with the following fields (example
 
 ## Usage
 
-1. Make sure `log.txt` and all course registration files (`<CourseID>.txt`) are in the same directory as the script.
+1. Make sure `log.txt` and all course registration files (`CourseID.txt`) are in the same directory as the script.
 2. Make the script executable:
 
 ```bash
