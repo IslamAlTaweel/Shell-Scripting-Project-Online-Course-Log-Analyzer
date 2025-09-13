@@ -82,7 +82,8 @@ chmod +x course_log_analyzer.sh
 ```
 
 
-## Screenshots of the execution from services 1-8
+## Usage Instructions
+Displayed below are some common use cases and their expected outputs based on the information from the attatched log and registration files.
 ![47979271-0e68-463f-b613-6594ad27b29b](https://github.com/user-attachments/assets/13c60e41-9590-4494-a1cf-c4b2deda1617)
 ![0cfcf1be-51b9-41f4-a758-bcc8323d2b38](https://github.com/user-attachments/assets/62d88fda-0588-41b7-b4c9-1e1f460bafef)
 ![5987123e-bb9c-4a62-b46c-6aa12c6edd58](https://github.com/user-attachments/assets/479da35b-6c2e-4c5b-8594-fbcfa43dbb99)
