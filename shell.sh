@@ -24,12 +24,12 @@ while :; do
 	read servNum #var to take in user input
 
 	case "$servNum" in
-	[1-8]) ;;
+	[1-8]) ;; #valid user input
 	9)
 		echo "Exiting Program.....GoodBye!"
-		break
+		break # close program if user chooses exit, breaks out of while true loop
 		;;
-	*) echo -e "\nInvalid service number.\n" ;; #any char except 1-8 is invalid
+	*) echo -e "\nInvalid service number.\n" ;; #any char except 1-8 is invalid user input
 	esac
 
 	case "$servNum" in
@@ -248,20 +248,21 @@ while :; do
 		;;
 	7)
 		echo -e "\nAverage Number of Attendances per Instructor:"
-		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) #obtain number of students in a session
-		instructors=$(cut -d, -f5 log.txt | sort -u)
+		attendance_per_session=$(cut -d, -f5,9 log.txt | sort -V | uniq -c) # obtain number of students per session
+		instructors=$(cut -d, -f5 log.txt | sort -u) # obtain all the different instructors
 
 		for instructor in $instructors; do
-			sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1)
-			total_students=0
-			num_of_sessions=0
+  			#obtain the student count per session by finding the session count
+			sessions_info=$(echo "$attendance_per_session" | grep "$instructor," | sed 's/^ *//' | cut -d' ' -f1) 
+			total_students=0 # used to sum total student attendees across all the sessions of an instructor
+			num_of_sessions=0 # used to obtain the number of sessions taught by an instructor
 
-			for cnt in $sessions_info; do
-				total_students=$((total_students + cnt))
-				num_of_sessions=$((num_of_sessions + 1))
+			for cnt in $sessions_info; do # loop through the session count of an instructor
+				total_students=$((total_students + cnt)) # add the number of students in this session to the total amount of students
+				num_of_sessions=$((num_of_sessions + 1)) # increment the number of sessions
 			done
 
-			if [ "$num_of_sessions" -gt 0 ]; then
+			if [ "$num_of_sessions" -gt 0 ]; then # compute and display the average attendance per instructor
 				average_attendance_per_instructor=$((total_students / num_of_sessions))
 				echo "$instructor : $average_attendance_per_instructor students over $num_of_sessions sessions"
 			fi
